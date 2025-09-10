@@ -1,10 +1,16 @@
-name: FirstWorkflow
-on: Workflow_dispatch   #manually trigger
+name: Validate GitHub Actions Workflows
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/*.yml'
+
 jobs:
-  first-job:
+  validate:
     runs-on: ubuntu-latest
-      steps:
-        - name: print welcome message
-          run: echo "welcome to ubuntu"
-        - name: print goodbye message
-          run: echo "Goodbye ubuntu"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate GitHub Actions
+        uses: jazzsequence/github-action-validator@v1
